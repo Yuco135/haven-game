@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 
 const SPEED = 400.0
 const DASH_SPEED = 1000.0
@@ -57,15 +57,15 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		animated_sprite.play("idle")
+
 	
-	if Input.is_action_just_pressed("Bounce") and can_bounce:
-		$"Bounce timer".start()
-		can_bounce=false
-		JUMP_VELOCITY = -250.0
 	
 	
 	move_and_slide()
 	
+func _ready() -> void:
+	GameManager.set_player(self)
+
 func game_over():
 	get_tree().change_scene_to_file("res://Main Menu/Scenes/lose_screen.tscn")
 
@@ -74,16 +74,3 @@ func _on_dash_timer_timeout() -> void:
 
 func _on_dash_again_timer_timeout() -> void:
 	can_dash = true
-
-func _on_bounce_timer_timeout() -> void:
-	can_bounce = false
-	JUMP_VELOCITY = -500.0
-	$"bounce again".start()
-
-func _on_bounce_again_timeout() -> void:
-	can_bounce = true
-	if Input.is_action_just_pressed("Bounce") and can_bounce:
-		$"Bounce timer".start()
-		can_bounce=false
-		JUMP_VELOCITY = -250.0
-	

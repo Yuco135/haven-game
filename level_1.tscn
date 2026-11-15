@@ -1,14 +1,15 @@
 [gd_scene format=4 uid="uid://cpccb85iolucd"]
 
-[ext_resource type="PackedScene" uid="uid://b00b4e6qhqayl" path="res://Player/player.tscn" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://dtcx1oxcys2c0" path="res://Main Stuff/Scenes/single_use_platform.tscn" id="2_h2yge"]
-[ext_resource type="Texture2D" uid="uid://dkc7ge3q35pak" path="res://Art/Level Art/spr_tileset_sunnysideworld_16px.png" id="3_lquwl"]
-[ext_resource type="Texture2D" uid="uid://hgt455fttcol" path="res://Art/Level Art/GandalfHardcore city tiles 32x32.png" id="4_7mycd"]
-[ext_resource type="Texture2D" uid="uid://cjq7pdwf0wyvp" path="res://Art/Enjl-Teal Tower Tileset/Enjl-Teal Tower Tileset/tileset.png" id="5_272bh"]
-[ext_resource type="Texture2D" uid="uid://6lwxp7rrypaw" path="res://Art/Level Art/Building Tiles 32x32.png" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://b00b4e6qhqayl" path="res://Player/player.tscn" id="1_5hph3"]
+[ext_resource type="Script" uid="uid://c6a7shlfdgvhs" path="res://level_1.gd" id="1_j7kpp"]
+[ext_resource type="PackedScene" uid="uid://dtcx1oxcys2c0" path="res://Main Stuff/Scenes/single_use_platform.tscn" id="2_j7kpp"]
+[ext_resource type="Texture2D" uid="uid://dkc7ge3q35pak" path="res://Art/Level Art/spr_tileset_sunnysideworld_16px.png" id="3_bjebc"]
+[ext_resource type="Texture2D" uid="uid://hgt455fttcol" path="res://Art/Level Art/GandalfHardcore city tiles 32x32.png" id="4_5rr72"]
+[ext_resource type="Texture2D" uid="uid://cjq7pdwf0wyvp" path="res://Art/Enjl-Teal Tower Tileset/Enjl-Teal Tower Tileset/tileset.png" id="5_gyffv"]
+[ext_resource type="Texture2D" uid="uid://6lwxp7rrypaw" path="res://Art/Level Art/Building Tiles 32x32.png" id="6_1pe0h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5vw27"]
-texture = ExtResource("3_lquwl")
+texture = ExtResource("3_bjebc")
 12:0/0 = 0
 13:0/0 = 0
 14:0/0 = 0
@@ -1751,7 +1752,7 @@ texture = ExtResource("3_lquwl")
 43:49/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kek77"]
-texture = ExtResource("4_7mycd")
+texture = ExtResource("4_5rr72")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
@@ -1998,7 +1999,7 @@ texture = ExtResource("4_7mycd")
 13:7/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4c57u"]
-texture = ExtResource("5_272bh")
+texture = ExtResource("5_gyffv")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -2145,7 +2146,7 @@ texture = ExtResource("5_272bh")
 15:8/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_272bh"]
-texture = ExtResource("6_7mycd")
+texture = ExtResource("6_1pe0h")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -2767,10 +2768,11 @@ sources/2 = SubResource("TileSetAtlasSource_4c57u")
 sources/3 = SubResource("TileSetAtlasSource_272bh")
 
 [node name="Node2D" type="Node2D" unique_id=1040598898]
+script = ExtResource("1_j7kpp")
 
-[node name="player" parent="." unique_id=220968066 instance=ExtResource("1_0xm2m")]
+[node name="player" parent="." unique_id=220968066 instance=ExtResource("1_5hph3")]
 
-[node name="single_use_platform" parent="." unique_id=1747841990 instance=ExtResource("2_h2yge")]
+[node name="single_use_platform" parent="." unique_id=1747841990 instance=ExtResource("2_j7kpp")]
 position = Vector2(548, 586)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=2112035553]
