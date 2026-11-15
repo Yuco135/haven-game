@@ -1,3 +1,25 @@
 [gd_scene format=3 uid="uid://dsf1e3e8s6mhp"]
 
+[ext_resource type="Texture2D" uid="uid://bm6c3xbvobacd" path="res://icon.svg" id="1_0bnu1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3sy6q"]
+radius = 105.01904
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3sy6q"]
+size = Vector2(128, 129)
+
 [node name="Boss" type="Node2D" unique_id=2078828578]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1183119461]
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=2045946623]
+texture = ExtResource("1_0bnu1")
+
+[node name="enemy_hitbox" type="Area2D" parent="CharacterBody2D" unique_id=1664400885]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/enemy_hitbox" unique_id=1037426838]
+shape = SubResource("CircleShape2D_3sy6q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=934943601]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_3sy6q")

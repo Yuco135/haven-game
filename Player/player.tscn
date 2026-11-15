@@ -183,6 +183,9 @@ animations = [{
 "speed": 6.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_3sy6q"]
+radius = 117.64353
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w11f4"]
 size = Vector2(130, 198)
 
@@ -196,7 +199,13 @@ position = Vector2(32.00003, 106.5)
 scale = Vector2(7.625002, 8.03125)
 sprite_frames = SubResource("SpriteFrames_3sy6q")
 animation = &"attack"
-frame_progress = 0.9344817
+frame_progress = 0.80441016
+
+[node name="player_hitbox" type="Area2D" parent="." unique_id=420691639]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox" unique_id=1082558216]
+position = Vector2(42, 132)
+shape = SubResource("CircleShape2D_3sy6q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1319034345]
 position = Vector2(39, 131)
