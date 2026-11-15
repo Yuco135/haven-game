@@ -19,30 +19,21 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 1092.0
-offset_top = 486.5
-offset_right = 1407.0
-offset_bottom = 594.5
+offset_left = 1101.0
+offset_top = 633.5
+offset_right = 1416.0
+offset_bottom = 741.5
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_font_sizes/font_size = 25
 text = "Start"
 
-[node name="Levels" type="Button" parent="button_manager" unique_id=1923025226]
-layout_mode = 0
-offset_left = 1120.0
-offset_top = 731.0
-offset_right = 1436.0
-offset_bottom = 838.0
-theme_override_font_sizes/font_size = 25
-text = "Levels"
-
 [node name="Credits" type="Button" parent="button_manager" unique_id=289926236]
 layout_mode = 0
-offset_left = 1125.0
-offset_top = 940.0
-offset_right = 1434.0
-offset_bottom = 1043.0
+offset_left = 1128.0
+offset_top = 859.0
+offset_right = 1437.0
+offset_bottom = 962.0
 theme_override_font_sizes/font_size = 40
 text = "Credits
 "
@@ -51,5 +42,4 @@ text = "Credits
 position = Vector2(1305, 789)
 
 [connection signal="pressed" from="button_manager/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="button_manager/Levels" to="." method="_on_levels_pressed"]
 [connection signal="pressed" from="button_manager/Credits" to="." method="_on_credits_pressed"]

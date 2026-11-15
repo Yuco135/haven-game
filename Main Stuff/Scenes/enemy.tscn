@@ -424,16 +424,23 @@ position = Vector2(4, 87)
 shape = SubResource("RectangleShape2D_3sy6q")
 
 [node name="BossHitbox" type="Area2D" parent="CharacterBody2D" unique_id=1065484598]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/BossHitbox" unique_id=180706036]
 position = Vector2(-149.875, 86.25)
 shape = SubResource("RectangleShape2D_2efdp")
 
 [node name="BossDamageArea" type="Area2D" parent="CharacterBody2D" unique_id=201674161]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/BossDamageArea" unique_id=1507370663]
 position = Vector2(-3, 83)
 shape = SubResource("CapsuleShape2D_iq5bo")
+
+[node name="death" type="Timer" parent="CharacterBody2D" unique_id=376622427]
+wait_time = 5.0
 
 [node name="take damage cooldown" type="Timer" parent="." unique_id=1174007818]
 wait_time = 0.5
@@ -442,5 +449,6 @@ wait_time = 0.5
 
 [connection signal="area_entered" from="CharacterBody2D/BossHitbox" to="CharacterBody2D" method="_on_boss_hitbox_area_entered"]
 [connection signal="area_entered" from="CharacterBody2D/BossDamageArea" to="CharacterBody2D" method="_on_boss_damage_area_area_entered"]
+[connection signal="timeout" from="CharacterBody2D/death" to="CharacterBody2D" method="_on_death_timeout"]
 [connection signal="timeout" from="take damage cooldown" to="." method="_on_take_damage_cooldown_timeout"]
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]

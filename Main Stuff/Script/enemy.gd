@@ -100,7 +100,7 @@ func take_damage(damage):
 	if health <= health_min:
 		health = health_min
 		dead = true
-		get_tree().change_scene_to_file("res://Main Menu/Scenes/main_menu.tscn")
+		$death.start()
 	print(str(self), "current health is ", health)
 	
 func _on_boss_damage_area_area_entered(area):
@@ -108,3 +108,7 @@ func _on_boss_damage_area_area_entered(area):
 		is_dealing_damage = true
 		await get_tree().create_timer(1.0).timeout
 		is_dealing_damage = false
+
+
+func _on_death_timeout() -> void:
+	get_tree().change_scene_to_file("res://Main Menu/Scenes/main_menu.tscn")

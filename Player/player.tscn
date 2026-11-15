@@ -421,6 +421,8 @@ wait_time = 0.2
 [node name="dash_again_timer" type="Timer" parent="." unique_id=927520372]
 
 [node name="DealDamageZone" type="Area2D" parent="." unique_id=1853004052]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DealDamageZone" unique_id=1802023022]
 position = Vector2(128, 136)
