@@ -2778,7 +2778,7 @@ tile_map_data = PackedByteArray("AABLACYAAQAGAAEAAABMACYAAQAHAAEAAABNACYAAQAIAAE
 tile_set = SubResource("TileSet_3sy6q")
 
 [node name="Boss" parent="." unique_id=2078828578 instance=ExtResource("8_10d4x")]
-position = Vector2(1108, 392)
+position = Vector2(133, 196)
 
 [node name="Killzone" parent="." unique_id=1623600835 instance=ExtResource("9_i5eor")]
 position = Vector2(452, 923)

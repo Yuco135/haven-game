@@ -1,61 +1,58 @@
-extends Node2D
+class_name Enemy extends CharacterBody2D
 
-var speed = 50
-var player_chase = false
+const speed = 10
+var is_enemy_chase = false
 var player = null
 
 var health = 200
-var player_inattack_zone = false
-var can_take_damage = true
+var health_max = 200
+var health_min = 0
+
+var dead = false
+var taking_damage = false
+var damage_to_deal = 20
+var is_dealing_damage = false
 
 var dir: Vector2
 const gravity = 900
-var knockback_force =200
+var knockback_force = 200
 var is_roaming = true
 
-func _physics_process(delta: float) -> void:
-	deal_with_damage()
-	if player_chase:
-		position += (player.position - position)/speed
-
-func _on_detection_body_entered(body: Node2D) -> void:
-	player = body
-	player_chase = true
-
-
-func _on_detection_body_exited(body: Node2D) -> void:
-	player = null
-	player_chase = false
+func _process(delta):
+	if !is_on_floor():
+		velocity.y += gravity * delta
+		velocity.x = 0
+	move(delta)
+	handle_animation()
 	
-func enemy():
-	pass
+	move_and_slide()
+	
+func move(delta):
+	if !dead:
+		if !is_enemy_chase:
+			velocity += dir * speed * delta
+			is_roaming = true
+	elif dead:
+		velocity.x = 0
 
-
-
-
-func _on_enemy_hitbox_body_entered(body: Node2D) -> void:
-	if body.name == "player":
-		player_inattack_zone = true
-
-
-func _on_enemy_hitbox_body_exited(body: Node2D) -> void:
-	if body.name == "player":
-		player_inattack_zone = false
-
-func deal_with_damage():
-	if player_inattack_zone and Damage.player_current_attack:
-		if can_take_damage == true:
-			health = health - 10
-			$"take damage cooldown".start()
-			can_take_damage = false
-			print("enemy health", health)
-			if health <= 0:
-				self.queue_free()
-
-
-func _on_take_damage_cooldown_timeout() -> void:
-	can_take_damage = true
-
+func handle_animation():
+	var anim_sprite = $AnimatedSprite2D
+	if !dead and !taking_damage and !is_dealing_damage:
+		anim_sprite.play("walking")
+		if dir.x == -1:
+			anim_sprite.flip_h = true
+		elif dir.x == 1:
+			anim_sprite.flip_h = false
+		elif !dead and taking_damage and !is_dealing_damage:
+			anim_sprite
 
 func _on_direction_timer_timeout() -> void:
-	pass # Replace with function body.
+	$DirectionTimer.wait_time = choose([1.5,2.0,2.5])
+	if !is_enemy_chase:
+		dir = choose([Vector2.RIGHT, Vector2.LEFT])
+		velocity.x = 0
+	
+func choose(array):
+	array.shuffle()
+	return array.front()
+	

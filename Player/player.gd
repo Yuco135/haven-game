@@ -1,6 +1,5 @@
 class_name Player extends CharacterBody2D
 
-@onready var camera: Camera2D = $Camera2D
 
 const SPEED = 400.0
 const DASH_SPEED = 1000.0
