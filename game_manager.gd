@@ -6,8 +6,9 @@ var level: Level = null
 var bounce = false
 var can_bounce = true
 
-const MAC_REWIND_FRAMES = 300
-var player_positions: Array[Vector2]
+const MAX_REWIND_FRAMES = 300
+var player_frames: Array[Dictionary]
+
 
 func set_player(_player: Player) -> void:
 	player = _player
@@ -26,12 +27,19 @@ func _physics_process(_delta: float) -> void:
 func simple_rewind() -> void:
 	if player:
 		if Input.is_action_just_pressed("Rewind"):
-			if player_positions.size() > 0:
-				player.global_position = player_positions.pop_back()
+			if player_frames.size() > 0:
+				player.global_position = player_frames.pop_back()
 		else:
-			player_positions.append(player.global_position)
-			if player_positions.size() > MAC_REWIND_FRAMES:
-				player_positions.pop_front()
+			var frame: Dictionary = {
+				"position": player.global_position,
+				"velocity": player.velocity,
+				"animation": player.animated_sprite.animation,
+				"animation_frame": player.animated_sprite.frame,
+				"flip": player.animated_sprite.flip_h
+			}
+			player_frames.append(player.global_position)
+			if player_frames.size() > MAX_REWIND_FRAMES:
+				player_frames.pop_front()
 	pass
 
 func _on_bounce_timer_timeout() -> void:
