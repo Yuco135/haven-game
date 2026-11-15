@@ -5,7 +5,10 @@ const DASH_SPEED = 1000.0
 var dashing = false
 var can_dash = true 
 
-const JUMP_VELOCITY = -500.0
+var bounce = false
+var can_bounce = false
+
+var JUMP_VELOCITY = -500.0
 var jump_count = 0
 
 const wall_jump_pushback = 400
@@ -53,7 +56,10 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		animated_sprite.play("idle")
-
+	
+	if Input.is_action_just_pressed("Rewind"):
+		JUMP_VELOCITY = -200
+	
 	move_and_slide()
 	
 func game_over():
