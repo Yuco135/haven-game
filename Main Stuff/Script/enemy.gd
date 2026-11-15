@@ -1,8 +1,7 @@
 class_name Enemy extends CharacterBody2D
 
-const speed = 10
-var is_enemy_chase = false
-var player = null
+const speed = 30
+var is_enemy_chase = true
 
 var health = 200
 var health_max = 200
@@ -18,10 +17,16 @@ const gravity = 900
 var knockback_force = 200
 var is_roaming = true
 
+var player: CharacterBody2D
+var player_in_area = false
+
 func _process(delta):
 	if !is_on_floor():
 		velocity.y += gravity * delta
 		velocity.x = 0
+		
+	player = Global.playerBody
+	
 	move(delta)
 	handle_animation()
 	
@@ -31,7 +36,14 @@ func move(delta):
 	if !dead:
 		if !is_enemy_chase:
 			velocity += dir * speed * delta
+		elif is_enemy_chase and !taking_damage:
+			var dir_to_player = position.direction_to(player.position) * speed
+			velocity.x = dir_to_player.x
+			dir.x = abs(velocity.x) / velocity.x
 			is_roaming = true
+		elif taking_damage:
+			var kniockback_dir = position.direction_to(player.position) * knockback_force
+			velocity.x = kniockback_dir.x
 	elif dead:
 		velocity.x = 0
 
@@ -39,12 +51,22 @@ func handle_animation():
 	var anim_sprite = $AnimatedSprite2D
 	if !dead and !taking_damage and !is_dealing_damage:
 		anim_sprite.play("walking")
-		if dir.x == -1:
+		if dir.x == 1:
 			anim_sprite.flip_h = true
-		elif dir.x == 1:
+		elif dir.x == -1:
 			anim_sprite.flip_h = false
 		elif !dead and taking_damage and !is_dealing_damage:
-			anim_sprite
+			anim_sprite.play("taking_damage")
+			await get_tree().create_timer(1.0).timeout
+			taking_damage = false
+		elif dead and is_roaming:
+			is_roaming = false
+			anim_sprite.play("death")
+			await get_tree().create_timer(3).timeout
+			handle_death()
+			
+func handle_death():
+	self.queue_free()
 
 func _on_direction_timer_timeout() -> void:
 	$DirectionTimer.wait_time = choose([1.5,2.0,2.5])
@@ -56,3 +78,7 @@ func choose(array):
 	array.shuffle()
 	return array.front()
 	
+
+
+func _on_boss_hitbox_area_entered(area: Area2D) -> void:
+	var damage = Global.playerDamageAmount

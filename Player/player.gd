@@ -83,6 +83,7 @@ func _physics_process(delta: float) -> void:
 	
 func _ready() -> void:
 	GameManager.set_player(self)
+	Global.playerBody = self
 	enemy_attack()
 
 func game_over():
@@ -119,7 +120,7 @@ func _on_attack_cooldown_timeout() -> void:
 	
 func attack():
 	if Input.is_action_just_pressed("attack"):
-		Damage.player_current_attack = true
+		Global.player_current_attack = true
 		attack_ip = true
 		velocity.x = 0
 		animated_sprite.play("attack")
@@ -129,5 +130,5 @@ func attack():
 
 func _on_deal_attack_timer_timeout() -> void:
 	$deal_attack_timer.stop()
-	Damage.player_current_attack = false
+	Global.player_current_attack = false
 	attack_ip = false
