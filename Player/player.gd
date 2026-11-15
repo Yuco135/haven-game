@@ -14,7 +14,10 @@ var bounce_time = 10
 var JUMP_VELOCITY = -500.0
 var jump_count = 0
 
-var is_attacking = false
+var enemy_inattack_range = false
+var enemy_attack_cooldown = true
+var health = 100
+var player_alive = true
 
 const wall_jump_pushback = 400
 const wall_slide_gravity = 50
@@ -62,16 +65,34 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		animated_sprite.play("idle")
 		
+	enemy_attack()
 	move_and_slide()
 	
 func _ready() -> void:
 	GameManager.set_player(self)
 
 func game_over():
-	get_tree().change_scene_to_file("res://Main Menu/Scenes/lose_screen.tscn")
+	get_tree().reload_current_scene()
+
 
 func _on_dash_timer_timeout() -> void:
 	dashing = false
 
 func _on_dash_again_timer_timeout() -> void:
 	can_dash = true
+
+func player():
+	pass
+
+#Player Attack
+func _on_player_hitbox_body_entered(body):
+	if body.has_method("enemy"):
+		enemy_inattack_range = true
+
+func _on_player_hitbox_body_exited(body):
+	if body.has_method("enemy"):
+		enemy_inattack_range = false
+		
+func enemy_attack():
+	if enemy_inattack_range:
+		print("player took damage")

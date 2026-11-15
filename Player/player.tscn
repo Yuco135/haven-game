@@ -184,7 +184,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3sy6q"]
-radius = 117.64353
+radius = 517.60986
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w11f4"]
 size = Vector2(130, 198)
@@ -192,6 +192,8 @@ size = Vector2(130, 198)
 [node name="player" type="CharacterBody2D" unique_id=220968066]
 position = Vector2(459, 351)
 scale = Vector2(0.5, 0.5)
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_quswe")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=678775614]
@@ -202,6 +204,8 @@ animation = &"attack"
 frame_progress = 0.80441016
 
 [node name="player_hitbox" type="Area2D" parent="." unique_id=420691639]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox" unique_id=1082558216]
 position = Vector2(42, 132)
@@ -218,5 +222,7 @@ wait_time = 0.2
 
 [node name="dash_again_timer" type="Timer" parent="." unique_id=927520372]
 
+[connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
+[connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="dash_again_timer" to="." method="_on_dash_again_timer_timeout"]
