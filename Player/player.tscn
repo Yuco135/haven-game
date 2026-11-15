@@ -109,7 +109,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sm0op")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"attack",
 "speed": 8.0
 }, {
@@ -187,7 +187,7 @@ animations = [{
 size = Vector2(130, 198)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3sy6q"]
-radius = 517.60986
+radius = 183.84776
 
 [node name="player" type="CharacterBody2D" unique_id=220968066]
 position = Vector2(459, 351)
@@ -201,7 +201,8 @@ position = Vector2(32.00003, 106.5)
 scale = Vector2(7.625002, 8.03125)
 sprite_frames = SubResource("SpriteFrames_3sy6q")
 animation = &"attack"
-frame_progress = 0.80441016
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1319034345 groups=["player"]]
 position = Vector2(39, 131)
@@ -215,17 +216,20 @@ collision_mask = 2
 position = Vector2(42, 132)
 shape = SubResource("CircleShape2D_3sy6q")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=518127805]
-
 [node name="dash_timer" type="Timer" parent="." unique_id=484186601]
 wait_time = 0.2
 
 [node name="dash_again_timer" type="Timer" parent="." unique_id=927520372]
 
 [node name="attack cooldown" type="Timer" parent="." unique_id=645872110]
+wait_time = 5.0
+
+[node name="deal_attack_timer" type="Timer" parent="." unique_id=1075400518]
+wait_time = 0.5
 
 [connection signal="area_entered" from="player_hitbox" to="." method="_on_player_hitbox_area_entered"]
 [connection signal="area_exited" from="player_hitbox" to="." method="_on_player_hitbox_area_exited"]
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="dash_again_timer" to="." method="_on_dash_again_timer_timeout"]
 [connection signal="timeout" from="attack cooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="deal_attack_timer" to="." method="_on_deal_attack_timer_timeout"]

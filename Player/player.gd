@@ -18,6 +18,7 @@ var enemy_inattack_range = false
 var enemy_attack_cooldown = true
 var health = 100
 var player_alive = true
+var attack_ip = false
 
 const wall_jump_pushback = 400
 const wall_slide_gravity = 50
@@ -64,8 +65,11 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.play("run")
 			animated_sprite.flip_h = direction < 0
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		animated_sprite.play("idle")
+		if attack_ip == false:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			animated_sprite.play("idle")
+	
+	
 	
 	if health <= 0:
 		player_alive = false
@@ -75,6 +79,7 @@ func _physics_process(delta: float) -> void:
 		print_stop = false
 	
 	enemy_attack()
+	attack()
 	move_and_slide()
 	
 func _ready() -> void:
@@ -112,3 +117,18 @@ func enemy_attack():
 
 func _on_attack_cooldown_timeout() -> void:
 	enemy_attack_cooldown = true
+	
+func attack():
+	if Input.is_action_just_pressed("attack"):
+		Damage.player_current_attack = true
+		attack_ip = true
+		velocity.x = 0
+		animated_sprite.play("attack")
+		$deal_attack_timer.start()
+		
+
+
+func _on_deal_attack_timer_timeout() -> void:
+	$deal_attack_timer.stop()
+	Damage.player_current_attack = false
+	attack_ip = false
