@@ -58,8 +58,11 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		animated_sprite.play("idle")
 	
-	if Input.is_action_just_pressed("Rewind") and can_bounce:
-		_on_bounce_timer_timeout()
+	if Input.is_action_just_pressed("Bounce") and can_bounce:
+		$"Bounce timer".start()
+		can_bounce=false
+		JUMP_VELOCITY = -250.0
+	
 	
 	move_and_slide()
 	
@@ -73,18 +76,14 @@ func _on_dash_again_timer_timeout() -> void:
 	can_dash = true
 
 func _on_bounce_timer_timeout() -> void:
-	bounce_time -= 1
-	if bounce_time != 0:
-		while bounce_time != 0:
-			bounce = true 
-			can_bounce = false
-			$"bounce again".start()
-			JUMP_VELOCITY = -250.0
-	else:
-		can_bounce = true
-		bounce = false
-		JUMP_VELOCITY = -500.0
-	print(bounce_time)
+	can_bounce = false
+	JUMP_VELOCITY = -500.0
+	$"bounce again".start()
 
 func _on_bounce_again_timeout() -> void:
 	can_bounce = true
+	if Input.is_action_just_pressed("Bounce") and can_bounce:
+		$"Bounce timer".start()
+		can_bounce=false
+		JUMP_VELOCITY = -250.0
+	
