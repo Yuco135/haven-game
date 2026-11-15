@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://hgt455fttcol" path="res://Art/Level Art/GandalfHardcore city tiles 32x32.png" id="5_52kyh"]
 [ext_resource type="Texture2D" uid="uid://cjq7pdwf0wyvp" path="res://Art/Enjl-Teal Tower Tileset/Enjl-Teal Tower Tileset/tileset.png" id="6_66pvd"]
 [ext_resource type="Texture2D" uid="uid://6lwxp7rrypaw" path="res://Art/Level Art/Building Tiles 32x32.png" id="7_4vw7g"]
-[ext_resource type="PackedScene" uid="uid://dsf1e3e8s6mhp" path="res://boss.tscn" id="8_10d4x"]
+[ext_resource type="PackedScene" uid="uid://dsf1e3e8s6mhp" path="res://enemy.tscn" id="8_10d4x"]
 [ext_resource type="PackedScene" uid="uid://dkal2rwlw22ds" path="res://Main Stuff/Scenes/killzone.tscn" id="9_i5eor"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5vw27"]

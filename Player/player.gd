@@ -22,6 +22,8 @@ var player_alive = true
 const wall_jump_pushback = 400
 const wall_slide_gravity = 50
 
+var print_stop = true
+
 
 @onready var animated_sprite = $AnimatedSprite2D
  
@@ -64,12 +66,20 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		animated_sprite.play("idle")
-		
+	
+	if health <= 0:
+		player_alive = false
+		health = 0
+		if print_stop:
+			print("player has been killed")
+		print_stop = false
+	
 	enemy_attack()
 	move_and_slide()
 	
 func _ready() -> void:
 	GameManager.set_player(self)
+	enemy_attack()
 
 func game_over():
 	get_tree().reload_current_scene()
@@ -85,14 +95,20 @@ func player():
 	pass
 
 #Player Attack
-func _on_player_hitbox_body_entered(body):
-	if body.has_method("enemy"):
+func _on_player_hitbox_area_entered(area: Area2D) -> void:
+	if area.is_in_group("enemy"):
 		enemy_inattack_range = true
 
-func _on_player_hitbox_body_exited(body):
-	if body.has_method("enemy"):
+func _on_player_hitbox_area_exited(area: Area2D) -> void:
+	if area.is_in_group("enemy"):
 		enemy_inattack_range = false
 		
 func enemy_attack():
-	if enemy_inattack_range:
-		print("player took damage")
+	if enemy_inattack_range and enemy_attack_cooldown:
+		health = health - 20
+		enemy_attack_cooldown = false
+		$"attack cooldown".start()
+		print(health)
+
+func _on_attack_cooldown_timeout() -> void:
+	enemy_attack_cooldown = true
