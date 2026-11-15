@@ -6,7 +6,8 @@ var dashing = false
 var can_dash = true 
 
 var bounce = false
-var can_bounce = false
+var can_bounce = true
+var bounce_time = 10
 
 var JUMP_VELOCITY = -500.0
 var jump_count = 0
@@ -57,17 +58,33 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		animated_sprite.play("idle")
 	
-	if Input.is_action_just_pressed("Rewind"):
-		JUMP_VELOCITY = -200
+	if Input.is_action_just_pressed("Rewind") and can_bounce:
+		_on_bounce_timer_timeout()
 	
 	move_and_slide()
 	
 func game_over():
 	get_tree().change_scene_to_file("res://Main Menu/Scenes/lose_screen.tscn")
 
-
 func _on_dash_timer_timeout() -> void:
 	dashing = false
 
 func _on_dash_again_timer_timeout() -> void:
 	can_dash = true
+
+func _on_bounce_timer_timeout() -> void:
+	bounce_time -= 1
+	if bounce_time != 0:
+		while bounce_time != 0:
+			bounce = true 
+			can_bounce = false
+			$"bounce again".start()
+			JUMP_VELOCITY = -250.0
+	else:
+		can_bounce = true
+		bounce = false
+		JUMP_VELOCITY = -500.0
+	print(bounce_time)
+
+func _on_bounce_again_timeout() -> void:
+	can_bounce = true

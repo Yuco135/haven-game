@@ -177,6 +177,9 @@ wait_time = 0.2
 
 [node name="Bounce timer" type="Timer" parent="." unique_id=1412485840]
 
+[node name="bounce again" type="Timer" parent="." unique_id=1270326894]
+
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="dash_again_timer" to="." method="_on_dash_again_timer_timeout"]
 [connection signal="timeout" from="Bounce timer" to="." method="_on_bounce_timer_timeout"]
+[connection signal="timeout" from="bounce again" to="." method="_on_bounce_again_timeout"]
