@@ -33,7 +33,7 @@ var can_take_damage: bool
 var dead: bool
 
 
-func _ready() -> void:
+func _ready():
 	GameManager.set_player(self)
 	current_attack = false
 	dead = false
@@ -81,11 +81,8 @@ func _physics_process(delta: float) -> void:
 				velocity.x = direction * DASH_SPEED
 			else: 
 				velocity.x = direction * SPEED
-				animated_sprite.play("run")
-				animated_sprite.flip_h = direction < 0
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
-			animated_sprite.play("idle")
 			
 			
 		if !current_attack:
