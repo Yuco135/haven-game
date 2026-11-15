@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dsf1e3e8s6mhp"]
 
 [ext_resource type="Texture2D" uid="uid://bm6c3xbvobacd" path="res://icon.svg" id="1_0bnu1"]
-[ext_resource type="Script" uid="uid://dfwwndb3hy3wq" path="res://enemy.gd" id="1_6xxrv"]
+[ext_resource type="Script" uid="uid://dfwwndb3hy3wq" path="res://Main Stuff/Script/enemy.gd" id="1_d7766"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3sy6q"]
 size = Vector2(128, 129)
@@ -13,7 +13,7 @@ radius = 267.90485
 radius = 131.01526
 
 [node name="Boss" type="Node2D" unique_id=2078828578 groups=["enemy"]]
-script = ExtResource("1_6xxrv")
+script = ExtResource("1_d7766")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1183119461]
 collision_layer = 3
@@ -42,3 +42,5 @@ shape = SubResource("CircleShape2D_bp5kt")
 
 [connection signal="body_entered" from="CharacterBody2D/detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="CharacterBody2D/detection" to="." method="_on_detection_body_exited"]
+[connection signal="area_entered" from="CharacterBody2D/enemy_hitbox" to="." method="_on_enemy_hitbox_area_entered"]
+[connection signal="area_exited" from="CharacterBody2D/enemy_hitbox" to="." method="_on_enemy_hitbox_area_exited"]
