@@ -1,21 +1,21 @@
 class_name Enemy extends CharacterBody2D
 
 const speed = 30
-var is_enemy_chase = true
+var is_enemy_chase: bool
 
 var health = 200
 var health_max = 200
-var health_min = 0
+var health_min = 0  
 
 var dead = false
 var taking_damage = false
 var damage_to_deal = 20
-var is_dealing_damage = false
+var is_dealing_damage:bool = false
 
 var dir: Vector2
 const gravity = 900
 var knockback_force = 200
-var is_roaming = true
+var is_roaming: bool = true
 
 var player: CharacterBody2D
 var player_in_area = false
@@ -25,11 +25,19 @@ func _process(delta):
 		velocity.y += gravity * delta
 		velocity.x = 0
 		
+	if Global.playerAlive:
+		is_enemy_chase = true
+	elif !Global.playerAlive:
+		is_enemy_chase = false
+		
+	
+	Global.enemyDamageAmount = damage_to_deal
+	Global.enemyDamageZone = $BossDamageArea
+	
 	player = Global.playerBody
 	
 	move(delta)
 	handle_animation()
-	
 	move_and_slide()
 	
 func move(delta):
@@ -64,6 +72,8 @@ func handle_animation():
 			anim_sprite.play("death")
 			await get_tree().create_timer(3).timeout
 			handle_death()
+		elif !dead and is_dealing_damage:
+			anim_sprite
 			
 func handle_death():
 	self.queue_free()
@@ -82,3 +92,20 @@ func choose(array):
 
 func _on_boss_hitbox_area_entered(area: Area2D) -> void:
 	var damage = Global.playerDamageAmount
+	if area == Global.playerDamageZone:
+		take_damage(damage)
+		
+func take_damage(damage):
+	health -= damage
+	taking_damage = true
+	if health <= health_min:
+		health = health_min
+		dead = true
+		get_tree().change_scene_to_file("res://Main Menu/Scenes/main_menu.tscn")
+	print(str(self), "current health is ", health)
+	
+func _on_boss_damage_area_area_entered(area):
+	if area == Global.playerHitbox:
+		is_dealing_damage = true
+		await get_tree().create_timer(1.0).timeout
+		is_dealing_damage = false

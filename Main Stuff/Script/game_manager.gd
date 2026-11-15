@@ -2,9 +2,8 @@ extends Node
 
 @export var pause_on_rewind: bool = true
 
-
-# Reference to the player node
 var player: Player = null
+
 # Reference to the level node
 var level: Level = null
 
@@ -39,7 +38,6 @@ func simple_rewind() -> void:
 			if player_frames.size() > 0:
 				# Disable player physics while rewinding
 				player.process_mode = Node.PROCESS_MODE_DISABLED
-				player.camera.process_mode = Node.PROCESS_MODE_ALWAYS
 				if pause_on_rewind:
 					get_tree().paused = true
 				# Pop last frame and restore player state
