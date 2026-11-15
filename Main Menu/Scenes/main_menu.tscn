@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://dngakdvora115"]
+
+[ext_resource type="Script" uid="uid://dgnegmsg41dl" path="res://Main Menu/Scripts/main_menu.gd" id="1_4k6x5"]
+
+[node name="Main Menu" type="Node2D" unique_id=557621919]
+position = Vector2(-6, 0)
+script = ExtResource("1_4k6x5")
+
+[node name="button_manager" type="Control" parent="." unique_id=1043514810]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 30.0
+offset_bottom = 27.0
+
+[node name="Start" type="Button" parent="button_manager" unique_id=169749945]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 1092.0
+offset_top = 486.5
+offset_right = 1407.0
+offset_bottom = 594.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+text = "Start"
+
+[node name="Levels" type="Button" parent="button_manager" unique_id=1923025226]
+layout_mode = 0
+offset_left = 1120.0
+offset_top = 731.0
+offset_right = 1436.0
+offset_bottom = 838.0
+theme_override_font_sizes/font_size = 25
+text = "Levels"
+
+[node name="Credits" type="Button" parent="button_manager" unique_id=289926236]
+layout_mode = 0
+offset_left = 1125.0
+offset_top = 940.0
+offset_right = 1434.0
+offset_bottom = 1043.0
+theme_override_font_sizes/font_size = 40
+text = "Credits
+"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=864402734]
+position = Vector2(1305, 789)
+
+[connection signal="pressed" from="button_manager/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="button_manager/Levels" to="." method="_on_levels_pressed"]
+[connection signal="pressed" from="button_manager/Credits" to="." method="_on_credits_pressed"]
