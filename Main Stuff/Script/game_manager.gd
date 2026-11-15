@@ -30,6 +30,8 @@ func _physics_process(_delta: float) -> void:
 		$"bounce timer".start()
 		can_bounce=false
 		player.JUMP_VELOCITY = -750.0
+	
+	simple_rewind()
 
 func simple_rewind() -> void:
 	if player:
@@ -75,8 +77,7 @@ func _on_bounce_timer_timeout() -> void:
 
 func _on_bounce_again_timeout() -> void:
 	can_bounce = true
-	if Input.is_action_just_pressed("Rewind"):
+	if Input.is_action_just_pressed("bounce") and can_bounce:
 		$"Bounce timer".start()
 		can_bounce=false
 		player.JUMP_VELOCITY = -750.0
-		simple_rewind()

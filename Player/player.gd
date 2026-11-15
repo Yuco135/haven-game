@@ -48,26 +48,19 @@ func _physics_process(delta: float) -> void:
 		$dash_timer.start()
 		$dash_again_timer.start()
 	
-	if Input.is_action_just_pressed("attack") and is_on_floor():
-		is_attacking = true
-		velocity.x = 0
-		animated_sprite.play("attack")
-		await animated_sprite.animation_finished
-		is_attacking = false
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("Left", "Right")
-	if not is_attacking:
-		if direction:
-			if dashing:
-				velocity.x = direction * DASH_SPEED
-			else: 
-				velocity.x = direction * SPEED
-				animated_sprite.play("run")
-				animated_sprite.flip_h = direction < 0
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-			animated_sprite.play("idle")
+	if direction:
+		if dashing:
+			velocity.x = direction * DASH_SPEED
+		else: 
+			velocity.x = direction * SPEED
+			animated_sprite.play("run")
+			animated_sprite.flip_h = direction < 0
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		animated_sprite.play("idle")
 		
 	move_and_slide()
 	
