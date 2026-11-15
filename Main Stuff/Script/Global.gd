@@ -1,7 +1,9 @@
 extends Node
 
+var enemyDamageAmount: int
 
 var player_current_attack = false
+var playerWeaponEquip = true
 
 var playerBody: CharacterBody2D
 

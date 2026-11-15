@@ -1,5 +1,6 @@
 class_name Player extends CharacterBody2D
 
+@onready var animated_sprite = $AnimatedSprite2D
 
 const SPEED = 400.0
 const DASH_SPEED = 1000.0
@@ -13,21 +14,27 @@ var bounce_time = 10
 var JUMP_VELOCITY = -500.0
 var jump_count = 0
 
-var enemy_inattack_range = false
-var enemy_attack_cooldown = true
-var health = 100
-var player_alive = true
-var attack_ip = false
 
 const wall_jump_pushback = 400
 const wall_slide_gravity = 50
 
 var print_stop = true
 
+var attack_type: String
+var current_attack: bool 
 
-@onready var animated_sprite = $AnimatedSprite2D
- 
+
+func _ready() -> void:
+	GameManager.set_player(self)
+	current_attack = false
+	dead = false
+	can_take_damage = true
+	Global.playerBody = self
+
+
 func _physics_process(delta: float) -> void:
+	weapon_equip = Global.playerWeaponEquip
+	Global.playerDamageZone = deal_damage_zone
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -35,7 +42,7 @@ func _physics_process(delta: float) -> void:
 		jump_count = 0
 		
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and jump_count < 2:
+	if Input.is_action_just_pressed("Jump") and jump_count < 2:
 		jump_count += 1
 		velocity.y = JUMP_VELOCITY
 		animated_sprite.play("jump")
@@ -64,71 +71,64 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.play("run")
 			animated_sprite.flip_h = direction < 0
 	else:
-		if attack_ip == false:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-			animated_sprite.play("idle")
-	
-	
-	
-	if health <= 0:
-		player_alive = false
-		health = 0
-		if print_stop:
-			print("player has been killed")
-		print_stop = false
-	
-	enemy_attack()
-	attack()
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		animated_sprite.play("idle")
+		
+		
+	if weapon_equip and !current_attack:
+		if Input.is_action_just_pressed("attack"):
+			current_attack = true
+		set_damage(attack_type)
+		handle_attack_animation(attack_type)
+	handle_movement_animation(direction)
+	check_hitbox()
 	move_and_slide()
 	
-func _ready() -> void:
-	GameManager.set_player(self)
-	Global.playerBody = self
-	enemy_attack()
-
-func game_over():
-	get_tree().reload_current_scene()
-
-
-func _on_dash_timer_timeout() -> void:
-	dashing = false
-
-func _on_dash_again_timer_timeout() -> void:
-	can_dash = true
-
-func player():
-	pass
-
-#Player Attack
-func _on_player_hitbox_area_entered(area: Area2D) -> void:
-	if area.is_in_group("enemy"):
-		enemy_inattack_range = true
-
-func _on_player_hitbox_area_exited(area: Area2D) -> void:
-	if area.is_in_group("enemy"):
-		enemy_inattack_range = false
+func check_hitbox():
+	var hitbox_areas = $player_hitbox.get_overlapping_areas()
+	var damage: int
+	if hitbox_areas:
+		var hitbox = hitbox_areas.front()
+		if hitbox.get_parent() is Enemy:
+			damage = Global.enemyDamageAmount
+			
+	if can_take_damage:
+		take_damage(damage)
 		
-func enemy_attack():
-	if enemy_inattack_range and enemy_attack_cooldown:
-		health = health - 20
-		enemy_attack_cooldown = false
-		$"attack cooldown".start()
-		print(health)
+func take_damage(damage):
+	if damage != 0:
+		if health > 0:
+			health -= damage
+			print("player health: ", health)
+			if health <= 0:
+				health = 0
+				dead = true
+				handle_death_animation()
+			take_damage_cooldown(1.0)
+			
+func handle_death_animation():
+	$CollisionShape2D.position.y = 5
+	animated_sprite
 
-func _on_attack_cooldown_timeout() -> void:
-	enemy_attack_cooldown = true
-	
-func attack():
-	if Input.is_action_just_pressed("attack"):
-		Global.player_current_attack = true
-		attack_ip = true
-		velocity.x = 0
-		animated_sprite.play("attack")
-		$deal_attack_timer.start()
+func handle_movement_animation(dir):
+	var weapon_equip = Global.playerWeaponEquip
+	if !weapon_equip:
+		if is_on_floor():
+			if !velocity:
+				animated_sprite.play("idle")
+			if velocity:
+				animated_sprite.play("run")
+				toggle_flip_sprite(dir)
+		elif !is_on_floor():
+			animated_sprite.play()
+
+func toggle_flip_sprite(dir):
+	if dir == 1:
+		animated_sprite.flip_h = false
+		deal_damage_zone.scale.x = 1
+	if dir == -1:
+		animated_sprite.flip_h = true
+		deal_damage_zone.scale.x = -1
 		
-
-
-func _on_deal_attack_timer_timeout() -> void:
-	$deal_attack_timer.stop()
-	Global.player_current_attack = false
-	attack_ip = false
+func handle_attack_animation(attack_type):
+	if weapon

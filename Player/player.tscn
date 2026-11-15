@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://3gv30l2swtxk" path="res://Player/player.gd" id="1_quswe"]
 [ext_resource type="Texture2D" uid="uid://d36ljc7japkbo" path="res://Art/Dacian Warrior Animated Pixel-Art 2D/Dacian Warrior Animated Pixel-Art 2D/Attack/50x50/Attack 0-1 Sprite Sheet.png" id="2_k53q1"]
 [ext_resource type="Texture2D" uid="uid://i3hdtjs5yleh" path="res://Art/Dacian Warrior Animated Pixel-Art 2D/Dacian Warrior Animated Pixel-Art 2D/Idle/50x50/Idle Sprite 0.png" id="3_fhl08"]
+[ext_resource type="Texture2D" uid="uid://0t23cwdp0vof" path="res://Art/Dacian Warrior Animated Pixel-Art 2D/Dacian Warrior Animated Pixel-Art 2D/Dead/50x50/Dead 0 Sprite Sheet.png" id="3_od3ui"]
+[ext_resource type="Texture2D" uid="uid://cctkcn8edrvss" path="res://Art/Dacian Warrior Animated Pixel-Art 2D/Dacian Warrior Animated Pixel-Art 2D/Fall/50x50/Fall 1 Sprite Sheet.png" id="3_vtle1"]
 [ext_resource type="Texture2D" uid="uid://n5kymuxep2co" path="res://Art/Dacian Warrior Animated Pixel-Art 2D/Dacian Warrior Animated Pixel-Art 2D/Jump/50x50/Jump Sprite 0.png" id="4_vtle1"]
 [ext_resource type="Texture2D" uid="uid://dt6sgkp76dt44" path="res://Art/Dacian Warrior Animated Pixel-Art 2D/Dacian Warrior Animated Pixel-Art 2D/Run/50x50/Run Sprite 0.png" id="5_od3ui"]
 
@@ -45,6 +47,34 @@ region = Rect2(400, 0, 50, 37)
 [sub_resource type="AtlasTexture" id="AtlasTexture_b1ygp"]
 atlas = ExtResource("2_k53q1")
 region = Rect2(450, 0, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2n6q"]
+atlas = ExtResource("3_od3ui")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6x0f"]
+atlas = ExtResource("3_od3ui")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jp1hh"]
+atlas = ExtResource("3_od3ui")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qs4pp"]
+atlas = ExtResource("3_od3ui")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyprq"]
+atlas = ExtResource("3_od3ui")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_od3ui"]
+atlas = ExtResource("3_vtle1")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4o1l"]
+atlas = ExtResource("3_vtle1")
+region = Rect2(50, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o28un"]
 atlas = ExtResource("3_fhl08")
@@ -141,6 +171,37 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_j2n6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6x0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jp1hh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qs4pp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyprq")
+}],
+"loop": 1,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_od3ui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4o1l")
+}],
+"loop": 1,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_o28un")
 }, {
 "duration": 1.0,
@@ -214,8 +275,8 @@ script = ExtResource("1_quswe")
 position = Vector2(32.00003, 106.5)
 scale = Vector2(7.625002, 8.03125)
 sprite_frames = SubResource("SpriteFrames_3sy6q")
-animation = &"run"
-frame_progress = 0.5587846
+animation = &"death"
+frame_progress = 0.56891304
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1319034345 groups=["player"]]
 position = Vector2(39, 135)
@@ -234,15 +295,7 @@ wait_time = 0.2
 
 [node name="dash_again_timer" type="Timer" parent="." unique_id=927520372]
 
-[node name="attack cooldown" type="Timer" parent="." unique_id=645872110]
-wait_time = 5.0
-
-[node name="deal_attack_timer" type="Timer" parent="." unique_id=1075400518]
-wait_time = 0.5
-
 [connection signal="area_entered" from="player_hitbox" to="." method="_on_player_hitbox_area_entered"]
 [connection signal="area_exited" from="player_hitbox" to="." method="_on_player_hitbox_area_exited"]
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="dash_again_timer" to="." method="_on_dash_again_timer_timeout"]
-[connection signal="timeout" from="attack cooldown" to="." method="_on_attack_cooldown_timeout"]
-[connection signal="timeout" from="deal_attack_timer" to="." method="_on_deal_attack_timer_timeout"]
