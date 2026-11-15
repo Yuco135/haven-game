@@ -55,7 +55,7 @@ func _physics_process(delta: float) -> void:
 		
 	# Handle jump.
 	if !dead:
-		if Input.is_action_just_pressed("Jump") and jump_count < 2:
+		if Input.is_action_just_pressed("jump") and jump_count < 2:
 			jump_count += 1
 			velocity.y = JUMP_VELOCITY
 			animated_sprite.play("jump")
@@ -162,14 +162,13 @@ func handle_attack_animation(attack_type):
 		if current_attack:
 			var animation = str(attack_type, "_attack")
 			animated_sprite.play(animation)
-			toggle_damage_collisions(attack_type)
 			print(animation)
 
 func toggle_damage_collisions(attack_type):
 	var damage_zone_collision = deal_damage_zone.get_node("CollisionShape2D")
 	var wait_time: float
 	if attack_type == "air":
-		wait_time = 0.6
+		wait_time = 1.0
 	elif attack_type == "single":
 		wait_time = 0.4
 	elif attack_type == "double":

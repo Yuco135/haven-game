@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://3gv30l2swtxk" path="res://Player/player.gd" id="1_quswe"]
 [ext_resource type="Texture2D" uid="uid://d36ljc7japkbo" path="res://Art/Dacian Warrior Animated Pixel-Art 2D/Dacian Warrior Animated Pixel-Art 2D/Attack/50x50/Attack 0-1 Sprite Sheet.png" id="2_k53q1"]
+[ext_resource type="Texture2D" uid="uid://bnly3uuseaukk" path="res://Art/Dacian Warrior Animated Pixel-Art 2D/Dacian Warrior Animated Pixel-Art 2D/Attack/50x50/Attack Sprite 0.png" id="2_x3vf3"]
 [ext_resource type="Texture2D" uid="uid://i3hdtjs5yleh" path="res://Art/Dacian Warrior Animated Pixel-Art 2D/Dacian Warrior Animated Pixel-Art 2D/Idle/50x50/Idle Sprite 0.png" id="3_fhl08"]
 [ext_resource type="Texture2D" uid="uid://0t23cwdp0vof" path="res://Art/Dacian Warrior Animated Pixel-Art 2D/Dacian Warrior Animated Pixel-Art 2D/Dead/50x50/Dead 0 Sprite Sheet.png" id="3_od3ui"]
 [ext_resource type="Texture2D" uid="uid://cctkcn8edrvss" path="res://Art/Dacian Warrior Animated Pixel-Art 2D/Dacian Warrior Animated Pixel-Art 2D/Fall/50x50/Fall 1 Sprite Sheet.png" id="3_vtle1"]
@@ -11,44 +12,28 @@
 [ext_resource type="Texture2D" uid="uid://bo1oy5jo85nja" path="res://Art/Dacian Warrior Animated Pixel-Art 2D/Dacian Warrior Animated Pixel-Art 2D/Attack/50x50/Attack Sprite 1.png" id="8_od3ui"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1l10g"]
-atlas = ExtResource("2_k53q1")
+atlas = ExtResource("2_x3vf3")
 region = Rect2(0, 0, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6rl0i"]
-atlas = ExtResource("2_k53q1")
+atlas = ExtResource("2_x3vf3")
 region = Rect2(50, 0, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7x5p2"]
-atlas = ExtResource("2_k53q1")
+atlas = ExtResource("2_x3vf3")
 region = Rect2(100, 0, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6eb1q"]
-atlas = ExtResource("2_k53q1")
+atlas = ExtResource("2_x3vf3")
 region = Rect2(150, 0, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wvbyc"]
-atlas = ExtResource("2_k53q1")
+atlas = ExtResource("2_x3vf3")
 region = Rect2(200, 0, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gvnt1"]
-atlas = ExtResource("2_k53q1")
+atlas = ExtResource("2_x3vf3")
 region = Rect2(250, 0, 50, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1kmt7"]
-atlas = ExtResource("2_k53q1")
-region = Rect2(300, 0, 50, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c4i3b"]
-atlas = ExtResource("2_k53q1")
-region = Rect2(350, 0, 50, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uvbbp"]
-atlas = ExtResource("2_k53q1")
-region = Rect2(400, 0, 50, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7v2uk"]
-atlas = ExtResource("2_k53q1")
-region = Rect2(450, 0, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c6x0f"]
 atlas = ExtResource("3_od3ui")
@@ -74,13 +59,13 @@ region = Rect2(200, 0, 50, 50)
 atlas = ExtResource("2_k53q1")
 region = Rect2(0, 0, 50, 37)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_apopc"]
-atlas = ExtResource("2_k53q1")
-region = Rect2(100, 0, 50, 37)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_x3vf3"]
 atlas = ExtResource("2_k53q1")
 region = Rect2(50, 0, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apopc"]
+atlas = ExtResource("2_k53q1")
+region = Rect2(100, 0, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5htga"]
 atlas = ExtResource("2_k53q1")
@@ -230,18 +215,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gvnt1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1kmt7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c4i3b")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uvbbp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7v2uk")
 }],
 "loop": 1,
 "name": &"air_attack",
@@ -272,10 +245,10 @@ animations = [{
 "texture": SubResource("AtlasTexture_00tjw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_apopc")
+"texture": SubResource("AtlasTexture_x3vf3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x3vf3")
+"texture": SubResource("AtlasTexture_apopc")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5htga")
@@ -300,7 +273,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"double_attack",
-"speed": 8.0
+"speed": 13.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -417,7 +390,7 @@ radius = 111.463
 [sub_resource type="CircleShape2D" id="CircleShape2D_vtle1"]
 radius = 106.901825
 
-[node name="player" type="CharacterBody2D" unique_id=220968066]
+[node name="player" type="CharacterBody2D" unique_id=220968066 groups=["player"]]
 position = Vector2(459, 351)
 scale = Vector2(0.5, 0.5)
 collision_layer = 3
@@ -429,10 +402,8 @@ position = Vector2(32.00003, 106.5)
 scale = Vector2(7.625002, 8.03125)
 sprite_frames = SubResource("SpriteFrames_3sy6q")
 animation = &"air_attack"
-frame = 3
-frame_progress = 0.30257052
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1319034345 groups=["player"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1319034345]
 position = Vector2(39, 135)
 shape = SubResource("RectangleShape2D_w11f4")
 

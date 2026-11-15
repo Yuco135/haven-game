@@ -56,24 +56,23 @@ func move(delta):
 		velocity.x = 0
 
 func handle_animation():
-	var anim_sprite = $AnimatedSprite2D
+	var animated_sprite = $AnimatedSprite2D
 	if !dead and !taking_damage and !is_dealing_damage:
-		anim_sprite.play("walking")
+		animated_sprite.play("walking")
 		if dir.x == 1:
-			anim_sprite.flip_h = true
+			animated_sprite.flip_h = true
 		elif dir.x == -1:
-			anim_sprite.flip_h = false
+			animated_sprite.flip_h = false
 		elif !dead and taking_damage and !is_dealing_damage:
-			anim_sprite.play("taking_damage")
+			animated_sprite.play("taking_damage")
 			await get_tree().create_timer(1.0).timeout
 			taking_damage = false
 		elif dead and is_roaming:
 			is_roaming = false
-			anim_sprite.play("death")
-			await get_tree().create_timer(3).timeout
+			animated_sprite.play("death")
+			await get_tree().create_timer(1.0).timeout
 			handle_death()
-		elif !dead and is_dealing_damage:
-			anim_sprite
+		
 			
 func handle_death():
 	self.queue_free()
@@ -90,7 +89,7 @@ func choose(array):
 	
 
 
-func _on_boss_hitbox_area_entered(area: Area2D) -> void:
+func _on_boss_hitbox_area_entered(area) -> void:
 	var damage = Global.playerDamageAmount
 	if area == Global.playerDamageZone:
 		take_damage(damage)
