@@ -3,13 +3,15 @@
 [ext_resource type="Script" uid="uid://wyro5a3k75ml" path="res://game_manager.gd" id="1_70yv6"]
 
 [node name="GameManager" type="Node" unique_id=1681722219]
+process_mode = 3
 script = ExtResource("1_70yv6")
 
-[node name="Bounce timer" type="Timer" parent="." unique_id=1166086110]
+[node name="bounce timer" type="Timer" parent="." unique_id=1166086110]
 wait_time = 10.0
 
 [node name="bounce again" type="Timer" parent="." unique_id=1455378578]
 wait_time = 2.0
+autostart = true
 
-[connection signal="timeout" from="Bounce timer" to="." method="_on_bounce_timer_timeout"]
+[connection signal="timeout" from="bounce timer" to="." method="_on_bounce_timer_timeout"]
 [connection signal="timeout" from="bounce again" to="." method="_on_bounce_again_timeout"]
